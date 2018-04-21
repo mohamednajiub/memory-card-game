@@ -7,7 +7,6 @@ This is a simple game built to test a users memory. There's a deck of cards with
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Contributing](#contributing)
 
 ## Challenge
 Match cards in less time with less moves.
