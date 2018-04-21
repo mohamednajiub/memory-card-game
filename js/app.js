@@ -44,10 +44,12 @@ document.body.onload = intializeGame();
 
 // initializing game function
 function intializeGame() {
-
+    // reset first click
+    firstClick = true;
+    // Reset opened card array
+    openedCards= [];
     // re-arrange the cards
     cards = shuffle(cards);
-
     // loop in cards array and put new cards in the array
     for (card in cards) {
         // empty the container from old cards
@@ -58,6 +60,12 @@ function intializeGame() {
             container.appendChild(card);
         })
         cards[card].classList.remove("show", "open", "match");
+        cards[card].addEventListener('click',()=>{
+            if (firstClick){
+                startTimer();
+                firstClick = false;
+            }
+        })
     }
 
     // Resets number of moves
@@ -85,6 +93,8 @@ function intializeGame() {
     }
     // display timer
     timer.innerHTML = hours + ":" + min + ":" + sec ;
+
+    
 
 }
 
@@ -225,6 +235,7 @@ const modalContainer = document.querySelector('.modal');
 let totalTime        = document.querySelector('.totalTime'),
     totalMoves       = document.querySelector('.totalMoves'),
     finalRaiting     = document.querySelector('.finalRaiting');
+
 // modal function;
 function modal() {
     modalContainer.style.display = "grid";
