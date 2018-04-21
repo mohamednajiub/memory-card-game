@@ -117,6 +117,7 @@ function matchCard() {
     matchCards.push(openedCards[0],openedCards[1]);
     if (matchCards.length == 16){
         stopTimer();
+        modal();
     }
     openedCards = [];
     
@@ -199,6 +200,19 @@ for (var i = 0; i < cards.length; i++){
 function stopTimer() {
     // Stop Timer
     clearInterval(timeCount);
+}
+
+
+// get modal variables and functions
+const modalContainer = document.querySelector('.modal');
+let totalTime        = document.querySelector('.totalTime'),
+    totalMoves       = document.querySelector('.totalMoves'),
+    finalRaiting     = document.querySelector('.finalRaiting');
+function modal() {
+    modalContainer.style.display = "grid";
+    totalTime.innerHTML = timer.innerHTML;
+    totalMoves.innerHTML = counter.innerHTML;
+    finalRaiting
 }
 
 /*
