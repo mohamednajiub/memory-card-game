@@ -1,6 +1,9 @@
 // set game variables
 // Create a list that holds all of your cards
-const container  = document.getElementById('deck');
+const container  = document.getElementById('deck'),
+      restart    = document.querySelector('.restart'),
+      closeModal = document.querySelector('.fa-close'),
+      playAgain  = document.getElementById('playAgain');
 let timeCount,
     card         = document.getElementsByClassName("card"),
     cards        = [...card]
@@ -15,13 +18,9 @@ let timeCount,
     stars        = document.querySelectorAll(".fa-star"),
     
     // initialize the number of click
-    moves        = 0,
     counter      = document.querySelector(".moves"),
     
     // intialize the timer
-    hours        = 0,
-    min          = 0,
-    sec          = 0,
     timer        = document.querySelector(".timer"),
     
     // first click 
@@ -57,19 +56,24 @@ function intializeGame() {
         [].forEach.call(cards, function(card) {
             // apend cards to the Dom
             container.appendChild(card);
-        });
+        })
+        cards[card].classList.remove("show", "open", "match");
     }
 
     // Resets number of moves
+    moves             = 0;
     counter.innerHTML = moves;
 
     // Reset Raiting
     for (var i= 0; i < stars.length; i++){
         stars[i].style.color = "#FFD700";
-        stars[i].style.visibility = "hidden";
+        stars[i].style.visibility = "visible";
     }
-
     // Reset timer
+    stopTimer();
+    sec   = 0;
+    min   = 0;
+    hours = 0;
     if (sec < 10){
         sec = "0"+ sec
     }
@@ -81,7 +85,7 @@ function intializeGame() {
     }
     // display timer
     timer.innerHTML = hours + ":" + min + ":" + sec ;
-    
+
 }
 
 // show card function
@@ -154,6 +158,21 @@ function enable(){
 function clickCounter(){
     moves++;
     counter.innerHTML = moves;
+    // setting rates based on moves
+    if (moves > 16 && moves <= 20){
+        for(star in stars){
+            if(star > 1){
+                stars[star].style.visibility = "collapse";
+            }
+        }
+    }
+    else if (moves > 16){
+        for(star in stars){
+            if(star > 0){
+                stars[star].style.visibility = "collapse";
+            }
+        }
+    }
 }
 
 // time counter function
@@ -178,12 +197,11 @@ function startTimer(){
             }
         }
         timer.innerHTML = hours + ":" + min + ":" + sec ;
-        
     },1000);
 }
 
 // loop to add event listeners to each card
-for (var i = 0; i < cards.length; i++){
+for (let i = 0; i < cards.length; i++){
     card = cards[i];
     card.addEventListener('click',()=>{
         if (firstClick){
@@ -202,18 +220,26 @@ function stopTimer() {
     clearInterval(timeCount);
 }
 
-
 // get modal variables and functions
 const modalContainer = document.querySelector('.modal');
 let totalTime        = document.querySelector('.totalTime'),
     totalMoves       = document.querySelector('.totalMoves'),
     finalRaiting     = document.querySelector('.finalRaiting');
+// modal function;
 function modal() {
     modalContainer.style.display = "grid";
     totalTime.innerHTML = timer.innerHTML;
     totalMoves.innerHTML = counter.innerHTML;
-    finalRaiting
+    finalRaiting.innerHTML = document.querySelector(".stars").innerHTML;
+    closeModal.addEventListener('click', close);
 }
+function close() {
+    modalContainer.style.display = "none";
+}
+playAgain.addEventListener('click',()=>{
+    intializeGame();
+    close();
+})
 
 /*
  * set up the event listener for a card. If a card is clicked:

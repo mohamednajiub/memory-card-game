@@ -26,7 +26,7 @@
             
             <span class="timer"></span>
 
-            <div class="restart">
+            <div class="restart" onclick="intializeGame()">
         		<i class="fa fa-repeat"></i>
         	</div>
         </section>
@@ -84,9 +84,14 @@
         <div class="modal">
             <table>
                 <thead>
-                    <th colspan="2">
-                        <h1>Congratulations</h1>
-                    </th>
+                    <tr>
+                        <th>
+                            <h1>Congratulations</h1>
+                        </th>
+                        <th onclick="close()">
+                            <i class="fa fa-close"></i>
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>
@@ -101,7 +106,14 @@
                         <td><p>Raiting</p></td>
                         <td class="finalRaiting"></td>
                     </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button id="playAgain">Play Again</button>
+                        </td>
+                    </tr>
+                        
                 </tbody>
+                
             </table>
         </div>
     </div>
